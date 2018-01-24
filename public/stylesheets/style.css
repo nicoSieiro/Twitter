@@ -57,3 +57,20 @@ code {
 .content .by {
   font-weight: bold;
 }
+
+.alf{
+  margin-bottom: 20px;
+}
+
+.alfimg {
+  float: left;
+  margin-right: 20px;
+}
+
+.userTweet {
+  color: blue;
+}
+
+.tweet {
+  color:blue;
+}

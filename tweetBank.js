@@ -3,15 +3,18 @@ const _ = require('lodash');
 var data = []
 
 function add (name, content) {
-    data.push({ name: name, content: content });
-  }
-  function list () {
-    return _.cloneDeep(data);
-  }
-  function find (properties) {
-    return _.cloneDeep(_.filter(data, properties));
-  }
-  module.exports = { add: add, list: list, find: find };
+  var id = add.id
+  add.id += 1
+  data.push({ name: name, content: content, id: id });
+}
+add.id = 0
+function list () {
+  return _.cloneDeep(data);
+}
+function find (properties) {
+  return _.cloneDeep(_.filter(data, properties));
+}
+module.exports = { add: add, list: list, find: find };
 
 
 
@@ -30,5 +33,3 @@ function add (name, content) {
   for (var i = 0; i < 10; i++) {
     module.exports.add( getFakeName(), getFakeTweet() );
 }
-
-console.log(data)
