@@ -1,6 +1,9 @@
 const express = require( 'express' );
 const app = express(); // crea una instancia de una aplicación de express
 const morgan = require('morgan')
+const nunjucks = require('nunjucks')
+const fs = require('fs')
+
 
 app.use(morgan(function (tokens, req, res) {
     return [
@@ -12,9 +15,23 @@ app.use(morgan(function (tokens, req, res) {
     ].join(' ')
 }))
 
+//nunjucks:
+var locals = {
+    title: 'An Example',
+    people: [
+        { name: 'Gandalf'},
+        { name: 'Frodo' },
+        { name: 'Hermione'}
+    ]
+};
+
+app.set('view engine', 'html'); // hace que res.render funcione con archivos html
+app.engine('html', nunjucks.render); // cuando le den archivos html a res.render, va a usar nunjucks
+nunjucks.configure('views'); // apunta a nunjucks al directorio correcto para los templates
+
 
 app.get('/',function(req,res){
-    res.send("sisisi")
+    res.render('index.html', locals)
 })
 
 app.get('/gary',function(req,res){
@@ -25,4 +42,5 @@ app.post('/gary',function(req,res){
     res.send("puto el qque lee")
     
 })
+
 app.listen(3000)
